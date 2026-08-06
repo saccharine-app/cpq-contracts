@@ -10,6 +10,17 @@ class QuoteBuilderController extends Controller
 {
     public function create($ownerType, $ownerId)
     {
+        $manifest = $this->compileManifest($ownerType, $ownerId);
+
+        if ($request->wantsJson()) {
+            return response()->json($manifest);
+        }
+
+        return Inertia::render('CPQ/Selector', ['manifest' => $manifest]);
+    }
+
+    protected function compileManifest($ownerType, $ownerId)
+    {
         // Eager load the item and the currently active price
         $offerings = CatalogOffering::with(['item', 'prices'])
             ->where('owner_type', urldecode($ownerType))
@@ -43,11 +54,9 @@ class QuoteBuilderController extends Controller
             ]
         ];
 
-        return Inertia::render('CPQ/Selector', [
-            'manifest' => [
-                'offerings' => $offeringsDictionary,
-                'presentation' => $presentation,
-            ]
-        ]);
+        return [
+            'offerings' => $offeringsDictionary,
+            'presentation' => $presentation,
+        ];
     }
 }
