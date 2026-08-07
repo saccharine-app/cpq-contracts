@@ -1,0 +1,24 @@
+{
+    "name": "saccharine/cpq-catalog",
+    "description": "A decoupled Configure-Price-Quote catalog and quoting engine.",
+    "type": "library",
+    "require": {
+        "php": "^8.3",
+        "illuminate/support": "^12.0 || ^13.0",
+        "inertiajs/inertia-laravel": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Package\\CPQ\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Package\\CPQ\\CpqServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
