@@ -5,10 +5,11 @@ namespace Package\CPQ\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Inertia\Inertia;
 use Package\CPQ\Models\CatalogOffering;
+use Illuminate\Http\Request;
 
 class QuoteBuilderController extends Controller
 {
-    public function create($ownerType, $ownerId)
+    public function create(Request $request, $ownerType, $ownerId)
     {
         $manifest = $this->compileManifest($ownerType, $ownerId);
 
@@ -21,9 +22,12 @@ class QuoteBuilderController extends Controller
 
     protected function compileManifest($ownerType, $ownerId)
     {
+        // Convert URL-safe owner type back to a class name (e.g., App-Models-Location -> App\Models\Location)
+        $parsedOwnerType = str_replace('-', '\\', $ownerType);
+
         // Eager load the item and the currently active price
         $offerings = CatalogOffering::with(['item', 'prices'])
-            ->where('owner_type', urldecode($ownerType))
+            ->where('owner_type', urldecode($parsedOwnerType))
             ->where('owner_id', $ownerId)
             ->where('is_active', true)
             ->get();
