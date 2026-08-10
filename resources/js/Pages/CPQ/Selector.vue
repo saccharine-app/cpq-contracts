@@ -4,13 +4,17 @@ import { router } from '@inertiajs/vue3';
 
 // Receive the manifest JSON from the Laravel controller
 const props = defineProps({
+    ownerType: String,
+    ownerId: String,
     manifest: {
         type: Object,
         required: true
     }
 });
 
-// STATE: An array holding the IDs of the checkboxes the user clicks
+// STATE: Reactive references for the active quote and selected offerings
+const page = usePage();
+const activeQuoteId = ref(page.props.flash?.quote_id || null);
 const selectedOfferingIds = ref([]);
 
 // COMPUTED: Reactively calculates the total price based on the selected IDs
@@ -21,11 +25,20 @@ const runningTotal = computed(() => {
     }, 0);
 });
 
-// ACTION: Submit the state back to Laravel to save the quote
 const saveQuote = () => {
     router.post('/cpq/quotes', {
+        quote_id: activeQuoteId.value,
+        owner_type: props.ownerType,
+        owner_id: props.ownerId,
         configurator_state: {
             selected_offerings: selectedOfferingIds.value
+        }
+    }, {
+        preserveScroll: true,
+        onSuccess: (page) => {
+            // Update the local ID so subsequent saves overwrite the same draft
+            activeQuoteId.value = page.props.flash.quote_id;
+            alert('Draft saved successfully!');
         }
     });
 };

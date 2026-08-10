@@ -17,7 +17,11 @@ class QuoteBuilderController extends Controller
             return response()->json($manifest);
         }
 
-        return Inertia::render('CPQ/Selector', ['manifest' => $manifest]);
+        return Inertia::render('CPQ/Selector', [
+            'ownerType' => $ownerType,
+            'ownerId' => $ownerId,
+            'manifest' => $manifest
+        ]);
     }
 
     protected function compileManifest($ownerType, $ownerId)
