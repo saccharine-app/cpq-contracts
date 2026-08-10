@@ -6,6 +6,8 @@ import { router } from '@inertiajs/vue3';
 const props = defineProps({
     ownerType: String,
     ownerId: String,
+    existingQuoteId: String,
+    existingState: Object,
     manifest: {
         type: Object,
         required: true
@@ -14,8 +16,12 @@ const props = defineProps({
 
 // STATE: Reactive references for the active quote and selected offerings
 const page = usePage();
-const activeQuoteId = ref(page.props.flash?.quote_id || null);
-const selectedOfferingIds = ref([]);
+
+// Initialize the active quote ID from either the URL prop OR a successful save flash
+const activeQuoteId = ref(props.existingQuoteId || page.props.flash?.quote_id || null);
+
+// Hydrate the checkboxes from the database state if it exists
+const selectedOfferingIds = ref(props.existingState?.selected_offerings || []);
 
 // COMPUTED: Reactively calculates the total price based on the selected IDs
 const runningTotal = computed(() => {

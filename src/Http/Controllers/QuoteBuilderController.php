@@ -9,17 +9,36 @@ use Illuminate\Http\Request;
 
 class QuoteBuilderController extends Controller
 {
-    public function create(Request $request, $ownerType, $ownerId)
+    public function create(Request $request, $ownerType, $ownerId, $quoteId = null)
     {
         $manifest = $this->compileManifest($ownerType, $ownerId);
+        $parsedOwnerType = str_replace('-', '\\', $ownerType);
 
         if ($request->wantsJson()) {
             return response()->json($manifest);
         }
 
+        // Fetch the existing quote if an ID was provided
+        $existingState = null;
+        $validQuoteId = null;
+
+        if ($quoteId) {
+            $quote = Quote::where('id', $quoteId)
+                ->where('owner_type', $parsedOwnerType)
+                ->where('owner_id', $ownerId)
+                ->first();
+
+            if ($quote) {
+                $existingState = $quote->configurator_state;
+                $validQuoteId = $quote->id;
+            }
+        }
+
         return Inertia::render('CPQ/Selector', [
             'ownerType' => $ownerType,
             'ownerId' => $ownerId,
+            'existingQuoteId' => $validQuoteId,
+            'existingState' => $existingState,
             'manifest' => $manifest
         ]);
     }

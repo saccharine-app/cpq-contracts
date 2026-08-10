@@ -19,7 +19,8 @@ class Cpq
                 ->name('cpq.manifest');
 
             // The Inertia Selector UI (if the host app wants to render the built-in view)
-            Route::get('/selector/{ownerType}/{ownerId}', [QuoteBuilderController::class, 'create'])
+            Route::get('/selector/{ownerType}/{ownerId}/{quoteId?}', 
+                    [QuoteBuilderController::class, 'create'])
                 ->name('cpq.selector');
 
             // The Save endpoint
