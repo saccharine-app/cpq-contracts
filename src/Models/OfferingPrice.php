@@ -1,6 +1,6 @@
 <?php
 
-namespace Package\CPQ\Models;
+namespace Saccharine\CPQ\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;

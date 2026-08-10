@@ -1,10 +1,10 @@
 <?php
 
-namespace Package\CPQ\Http\Controllers;
+namespace Saccharine\CPQ\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Inertia\Inertia;
-use Package\CPQ\Models\CatalogOffering;
+use Saccharine\CPQ\Models\CatalogOffering;
 use Illuminate\Http\Request;
 
 class QuoteBuilderController extends Controller

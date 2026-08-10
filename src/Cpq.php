@@ -1,10 +1,10 @@
 <?php
 
-namespace Package\CPQ;
+namespace Saccharine\CPQ;
 
 use Illuminate\Support\Facades\Route;
-use Package\CPQ\Http\Controllers\QuoteBuilderController;
-use Package\CPQ\Http\Controllers\SaveQuoteController;
+use Saccharine\CPQ\Http\Controllers\QuoteBuilderController;
+use Saccharine\CPQ\Http\Controllers\SaveQuoteController;
 
 class Cpq
 {

@@ -9,13 +9,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Package\\CPQ\\": "src/"
+            "Saccharine\\CPQ\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Package\\CPQ\\CpqServiceProvider"
+                "Saccharine\\CPQ\\CpqServiceProvider"
             ]
         }
     },

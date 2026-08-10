@@ -1,11 +1,11 @@
 <?php
 
-namespace Package\CPQ\Console\Commands;
+namespace Saccharine\CPQ\Console\Commands;
 
 use Illuminate\Console\Command;
-use Package\CPQ\Models\CatalogItem;
-use Package\CPQ\Models\CatalogOffering;
-use Package\CPQ\Models\OfferingPrice;
+use Saccharine\CPQ\Models\CatalogItem;
+use Saccharine\CPQ\Models\CatalogOffering;
+use Saccharine\CPQ\Models\OfferingPrice;
 use Illuminate\Support\Str;
 
 class SeedDemoCatalogCommand extends Command

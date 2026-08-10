@@ -1,6 +1,6 @@
 <?php
 
-namespace Package\CPQ;
+namespace Saccharine\CPQ;
 
 use Illuminate\Support\ServiceProvider;
 
