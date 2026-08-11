@@ -13,6 +13,11 @@ class CpqServiceProvider extends ServiceProvider
 
         // Allow host apps to publish the config file if they want to override defaults
         if ($this->app->runningInConsole()) {
+            // Register custom artisan commands
+            $this->commands([
+                \Saccharine\CPQ\Console\Commands\SeedDemoCatalogCommand::class,
+            ]);
+
             $this->publishes([
                 __DIR__.'/../config/cpq.php' => config_path('cpq.php'),
             ], 'cpq-config');

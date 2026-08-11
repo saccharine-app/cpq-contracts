@@ -4,7 +4,7 @@ namespace Saccharine\CPQ\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Package\CPQ\Models\Quote;
+use Saccharine\CPQ\Models\Quote;
 
 class SaveQuoteController extends Controller
 {
