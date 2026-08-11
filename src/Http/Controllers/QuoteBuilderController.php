@@ -3,9 +3,10 @@
 namespace Saccharine\CPQ\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Saccharine\CPQ\Models\CatalogOffering;
-use Illuminate\Http\Request;
+use Saccharine\CPQ\Models\Quote;
 
 class QuoteBuilderController extends Controller
 {

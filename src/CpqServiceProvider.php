@@ -18,9 +18,15 @@ class CpqServiceProvider extends ServiceProvider
                 \Saccharine\CPQ\Console\Commands\SeedDemoCatalogCommand::class,
             ]);
 
+            // Publish the config file to the host app
             $this->publishes([
                 __DIR__.'/../config/cpq.php' => config_path('cpq.php'),
             ], 'cpq-config');
+
+            // Publish the Vue pages to the host app
+            $this->publishes([
+                __DIR__.'/../resources/js/Pages' => resource_path('js/Pages'),
+            ], 'cpq-views');
         }
     }
 

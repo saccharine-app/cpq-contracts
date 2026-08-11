@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue';
-import { router } from '@inertiajs/vue3';
+import { router, usePage } from '@inertiajs/vue3';
 
 // Receive the manifest JSON from the Laravel controller
 const props = defineProps({
@@ -32,6 +32,7 @@ const runningTotal = computed(() => {
 });
 
 const saveQuote = () => {
+    console.log('Saving quote with selected offerings:', selectedOfferingIds.value);
     router.post('/cpq/quotes', {
         quote_id: activeQuoteId.value,
         owner_type: props.ownerType,
@@ -43,7 +44,7 @@ const saveQuote = () => {
         preserveScroll: true,
         onSuccess: (page) => {
             // Update the local ID so subsequent saves overwrite the same draft
-            activeQuoteId.value = page.props.flash.quote_id;
+            activeQuoteId.value = page.props.flash?.quote_id;
             alert('Draft saved successfully!');
         }
     });
