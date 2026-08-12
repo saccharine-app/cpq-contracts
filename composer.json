@@ -12,6 +12,12 @@
             "Saccharine\\CPQ\\": "src/"
         }
     },
+    "authors": [
+        {
+            "name": "Matthew Wegner",
+            "email": "mwegner@proton.me"
+        }
+    ],
     "extra": {
         "laravel": {
             "providers": [
