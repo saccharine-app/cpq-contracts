@@ -1,6 +1,6 @@
 {
-    "name": "saccharine/cpq-catalog",
-    "description": "A decoupled Configure-Price-Quote catalog and quoting engine.",
+    "name": "saccharine/cpq-contracts",
+    "description": "A decoupled Configure-Price-Quote and contract engine.",
     "type": "library",
     "require": {
         "php": "^8.3",
