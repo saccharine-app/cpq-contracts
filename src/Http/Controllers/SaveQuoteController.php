@@ -4,12 +4,13 @@ namespace Saccharine\CPQ\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Saccharine\CPQ\Models\Quote;
+use Saccharine\CPQ\Actions\SaveQuoteDraftAction;
 
 class SaveQuoteController extends Controller
 {
-    public function store(Request $request)
+    public function store(Request $request, SaveQuoteDraftAction $saveQuoteDraft)
     {
+        // Validate the HTTP Request
         $validated = $request->validate([
             'quote_id' => 'nullable|uuid',
             'owner_type' => 'required|string',
@@ -17,20 +18,17 @@ class SaveQuoteController extends Controller
             'configurator_state' => 'required|array',
         ]);
 
-        // Parse URL-safe owner_type back to a namespace if necessary
-        $parsedOwnerType = str_replace('-', '\\', $validated['owner_type']);
+        // Execute the Action
+        $quote = $saveQuoteDraft->execute($validated);
 
-        $quote = Quote::updateOrCreate(
-            ['id' => $validated['quote_id']],
-            [
-                'owner_type' => $parsedOwnerType,
-                'owner_id' => $validated['owner_id'],
-                'configurator_state' => $validated['configurator_state'],
-                'status' => 'draft',
-            ]
-        );
+        // Handle the HTTP Response
+        if ($request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'quote' => $quote
+            ]);
+        }
 
-        // Redirect back with the quote_id so the frontend knows it's now working on a saved draft
         return back()->with([
             'success' => 'Quote saved successfully.',
             'quote_id' => $quote->id,
