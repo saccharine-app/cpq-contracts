@@ -22,6 +22,7 @@ class CpqServiceProvider extends ServiceProvider
             // Register custom artisan commands
             $this->commands([
                 \Saccharine\CPQ\Console\Commands\SeedDemoCatalogCommand::class,
+                \Saccharine\CPQ\Console\Commands\SeedEventDemoCommand::class,
             ]);
 
             // Publish the config file to the host app
