@@ -11,6 +11,11 @@ class CpqServiceProvider extends ServiceProvider
         // Load the migrations we built earlier
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
+        // Map the string 'context' to whatever generic model we use for the demo
+        Relation::enforceMorphMap([
+            'context' => \Saccharine\CPQ\Models\DemoContext::class,
+        ]);
+        
         // Allow host apps to publish the config file if they want to override defaults
         if ($this->app->runningInConsole()) {
             // Register custom artisan commands

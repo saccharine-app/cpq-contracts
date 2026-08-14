@@ -19,30 +19,36 @@ class CompileQuoteManifestAction
             ->get();
 
         $offeringsDictionary = [];
-        $itemIdsForTab = [];
+        $tabs = [
+            'Services & Staffing' => [],
+            'Food, Beverage & Rentals' => [],
+            'Permits & Outsourced (Cash Advances)' => []
+        ];
 
         foreach ($offerings as $offering) {
             $currentPrice = $offering->currentPrice();
+            $category = $offering->item->attributes['category'] ?? 'Services & Staffing';
             
-            // Build the flat dictionary (O(1) lookups for the frontend)
             $offeringsDictionary[$offering->id] = [
                 'name' => $offering->display_name,
                 'price_cents' => $currentPrice ? $currentPrice->price_cents : 0,
                 'is_taxable' => $currentPrice->is_taxable_override ?? ($offering->item->default_tax_class !== 'EXEMPT'),
             ];
             
-            $itemIdsForTab[] = $offering->id;
+            if (isset($tabs[$category])) {
+                $tabs[$category][] = $offering->id;
+            }
         }
 
-        // Build the presentation layer (Hardcoded for the MVP)
-        $presentation = [
-            'staff_selector' => [
-                [
-                    'tab_name' => 'General Services',
-                    'item_ids' => $itemIdsForTab,
-                ]
-            ]
-        ];
+        $presentation = ['staff_selector' => []];
+        foreach ($tabs as $tabName => $itemIds) {
+            if (!empty($itemIds)) {
+                $presentation['staff_selector'][] = [
+                    'tab_name' => $tabName,
+                    'item_ids' => $itemIds,
+                ];
+            }
+        }
 
         return [
             'offerings' => $offeringsDictionary,
