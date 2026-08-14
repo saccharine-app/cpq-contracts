@@ -28,6 +28,7 @@ class CpqServiceProvider extends ServiceProvider
             $this->commands([
                 \Saccharine\CPQ\Console\Commands\SeedDemoCatalogCommand::class,
                 \Saccharine\CPQ\Console\Commands\SeedEventDemoCommand::class,
+                \Saccharine\CPQ\Console\Commands\ScaffoldCpqUiCommand::class,
             ]);
 
             // Publish the config file to the host app
