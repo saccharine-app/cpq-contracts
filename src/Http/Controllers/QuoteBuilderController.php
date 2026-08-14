@@ -10,8 +10,8 @@ use Saccharine\CPQ\Models\Quote;
 
 class QuoteBuilderController extends Controller
 {
-    public function create(Request $request, $ownerType, $ownerId, $quoteId = null, CompileQuoteManifestAction $compileManifest)
-    {
+    public function create(Request $request, CompileQuoteManifestAction $compileManifest, $ownerType, $ownerId, $quoteId = null)
+{
         // Execute the Action
         $manifest = $compileManifest->execute($ownerType, $ownerId);
 

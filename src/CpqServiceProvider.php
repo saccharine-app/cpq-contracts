@@ -12,6 +12,10 @@ class CpqServiceProvider extends ServiceProvider
         // Load the migrations we built earlier
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
+        Route::group(config('cpq.routes'), function () {
+            $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+        });
+        
         // Map the string 'context' to whatever generic model we use for the demo
         Relation::enforceMorphMap([
             'context' => \Saccharine\CPQ\Models\DemoContext::class,
