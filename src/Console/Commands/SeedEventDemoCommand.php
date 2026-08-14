@@ -16,7 +16,12 @@ class SeedEventDemoCommand extends Command
 
     public function handle()
     {
-        // ... (Truncate logic here) ...
+        if ($this->option('fresh')) {
+            $this->info('Truncating existing catalog data...');
+            OfferingPrice::query()->delete();
+            CatalogOffering::query()->delete();
+            CatalogItem::query()->delete();
+        }
 
         // Create a dummy context for the URL
         $context = DemoContext::create(['name' => 'Downtown Banquet Hall']);
