@@ -1,0 +1,17 @@
+import { createApp } from 'vue';
+import Selector from './Pages/CPQ/Selector.vue'; // Or wherever they published the stub
+
+// Wait for the DOM, or listen for Livewire's navigation event if using wire:navigate
+document.addEventListener('livewire:navigated', mountCpqVueApp);
+document.addEventListener('DOMContentLoaded', mountCpqVueApp);
+
+function mountCpqVueApp() {
+    const el = document.getElementById('cpq-vue-app');
+    
+    // Only initialize if the element exists and hasn't been mounted yet
+    if (el && !el.__vue_app__) {
+        const props = JSON.parse(el.dataset.props || '{}');
+        const app = createApp(Selector, props);
+        app.mount(el);
+    }
+}

@@ -1,0 +1,16 @@
+<x-filament-panels::page>
+    
+    @if(empty($vueProps))
+        <div class="p-4 bg-yellow-50 text-yellow-800 rounded">
+            No Context found. Please run <code>php artisan cpq:seed-events</code> first.
+        </div>
+    @else
+        <!-- wire:ignore prevents Livewire from interfering with Vue -->
+        <div 
+            wire:ignore 
+            id="cpq-vue-app" 
+            data-props="{{ json_encode($vueProps) }}"
+        ></div>
+    @endif
+
+</x-filament-panels::page>
