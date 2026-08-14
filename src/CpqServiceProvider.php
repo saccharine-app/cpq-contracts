@@ -3,6 +3,7 @@
 namespace Saccharine\CPQ;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class CpqServiceProvider extends ServiceProvider
 {
