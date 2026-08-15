@@ -8,9 +8,9 @@ use Saccharine\CPQ\Models\DemoContext;
 
 class QuoteBuilder extends Page
 {
-    protected static ?string $navigationIcon = 'heroicon-o-calculator';
-    protected static ?string $navigationGroup = 'CPQ Engine';
-    protected static string $view = 'filament.pages.quote-builder';
+    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-calculator';
+    protected static \UnitEnum|string|null $navigationGroup = 'CPQ Engine';
+    protected string $view = 'filament.pages.quote-builder';
 
     public array $vueProps = [];
 
