@@ -1,0 +1,37 @@
+<?php
+
+namespace Saccharine\CPQ\Filament\Pages;
+
+use Filament\Pages\Page;
+use Saccharine\CPQ\Actions\CompileQuoteManifestAction;
+use Saccharine\CPQ\Models\DemoContext;
+
+class QuoteBuilder extends Page
+{
+    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-calculator';
+    protected static \UnitEnum|string|null $navigationGroup = 'CPQ Engine';
+    protected string $view = 'filament.pages.quote-builder';
+
+    public array $vueProps = [];
+
+    public function mount(CompileQuoteManifestAction $compileManifest)
+    {
+        // For the demo, we grab the first seeded context
+        $context = DemoContext::first();
+        
+        if (! $context) {
+            return;
+        }
+
+        // Execute the package's headless action
+        $manifest = $compileManifest->execute('context', $context->id);
+
+        // Package the props exactly as the Vue component expects them
+        $this->vueProps = [
+            'ownerType' => 'context',
+            'ownerId' => $context->id,
+            'manifest' => $manifest,
+            // existingQuoteId and existingState would be passed here if loading a draft
+        ];
+    }
+}

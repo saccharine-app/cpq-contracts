@@ -16,14 +16,16 @@ class CpqFilamentPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
+        $panel->pages([QuoteBuilder::class]);
+
         // Conditionally add a navigation item to the host app's Filament panel
-        /* $panel->navigationItems([
-            NavigationItem::make('Quote Builder (Vue)')
+        $panel->navigationItems([
+            NavigationItem::make('Quote Builder')
                 ->icon('heroicon-o-calculator')
                 ->group('CPQ Engine')
                 ->url(fn () => $this->getDemoUrl())
                 ->openUrlInNewTab(false),
-        ]); */
+        ]);
     }
 
     public function boot(Panel $panel): void
