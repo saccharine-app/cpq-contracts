@@ -6,6 +6,7 @@ use Filament\Contracts\Plugin;
 use Filament\Panel;
 use Filament\Navigation\NavigationItem;
 use Saccharine\CPQ\Models\DemoContext;
+use Saccharine\CPQ\Filament\Pages\QuoteBuilder;
 
 class CpqFilamentPlugin implements Plugin
 {
