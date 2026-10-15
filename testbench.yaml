@@ -1,0 +1,40 @@
+laravel: '@testbench'
+
+providers:
+  - Saccharine\CPQ\CpqServiceProvider
+  - Workbench\App\Providers\WorkbenchServiceProvider
+  # Vendor packages with extra.laravel.providers (e.g. inertia-laravel) are
+  # loaded via package auto-discovery (see $enablesPackageDiscoveries in
+  # tests/TestCase.php) rather than being hard-coded here, so composer's
+  # post-autoload scripts never depend on a vendor class name.
+
+migrations:
+  - workbench/database/migrations
+
+seeders:
+  - Workbench\Database\Seeders\DatabaseSeeder
+
+workbench:
+  start: '/cpq/selector/context'
+  install: true
+  auth: false
+  discovers:
+    web: true
+    api: true
+    commands: true
+    components: false
+    factories: true
+    views: false
+  build:
+    - asset-publish
+    - create-sqlite-db
+    - db-wipe
+    - migrate-fresh:
+        --seed: true
+        --seeder: Workbench\Database\Seeders\DatabaseSeeder
+  assets:
+    - laravel-assets
+  sync:
+    - from: storage
+      to: workbench/storage
+      reverse: true

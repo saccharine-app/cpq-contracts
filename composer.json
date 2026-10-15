@@ -12,6 +12,14 @@
             "Saccharine\\CPQ\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Saccharine\\CPQ\\Tests\\": "tests/",
+            "Workbench\\App\\": "workbench/app/",
+            "Workbench\\Database\\Factories\\": "workbench/database/factories/",
+            "Workbench\\Database\\Seeders\\": "workbench/database/seeders/"
+        }
+    },
     "authors": [
         {
             "name": "Matthew Wegner",
@@ -23,6 +31,26 @@
             "providers": [
                 "Saccharine\\CPQ\\CpqServiceProvider"
             ]
+        }
+    },
+    "require-dev": {
+        "orchestra/testbench": "^10.0 || ^11.1",
+        "pestphp/pest": "^4.7",
+        "pestphp/pest-plugin-laravel": "^4.1"
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "@clear",
+            "@prepare"
+        ],
+        "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+        "prepare": "@php vendor/bin/testbench workbench:install --ansi --no-interaction --no-devtool",
+        "test": "@php vendor/bin/pest --colors=always",
+        "serve": "@php vendor/bin/testbench workbench:serve --ansi"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
         }
     },
     "minimum-stability": "dev",

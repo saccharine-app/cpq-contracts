@@ -10,6 +10,17 @@ use Saccharine\CPQ\Models\Quote;
 
 class QuoteBuilderController extends Controller
 {
+    /**
+     * JSON-only manifest endpoint.
+     *
+     * Exposed at `cpq.manifest` for consumers that only need the rules/catalog
+     * payload (Vue, React, external CMS) without rendering the Inertia shell.
+     */
+    public function manifest(CompileQuoteManifestAction $compileManifest, $ownerType, $ownerId)
+    {
+        return response()->json($compileManifest->execute($ownerType, $ownerId));
+    }
+
     public function create(Request $request, CompileQuoteManifestAction $compileManifest, $ownerType, $ownerId, $quoteId = null)
 {
         // Execute the Action
