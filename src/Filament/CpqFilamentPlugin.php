@@ -4,7 +4,6 @@ namespace Saccharine\CPQ\Filament;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
-use Filament\Navigation\NavigationItem;
 use Saccharine\CPQ\Models\DemoContext;
 use Saccharine\CPQ\Filament\Pages\QuoteBuilder;
 
@@ -15,9 +14,24 @@ class CpqFilamentPlugin implements Plugin
         return 'saccharine-cpq';
     }
 
+    public function getPluginName(): string
+    {
+        return 'CPQ Price Selector';
+    }
+
+    public function getNavigationIcon(): string
+    {
+        return 'heroicon-o-currency-dollar';
+    }
+
     public function register(Panel $panel): void
     {
-        $panel->pages([QuoteBuilder::class]);
+        $panel
+            ->pages([
+                QuoteBuilder::class,
+            ])
+            ->resources([])
+            ->middleware([]);
     }
 
     public function boot(Panel $panel): void
